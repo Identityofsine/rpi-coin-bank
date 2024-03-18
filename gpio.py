@@ -27,7 +27,7 @@ class Pin() :
 class GPIOSystem():
 	
 	pins = []
-	highest_pin : Pin | None = None
+	highest_pin : Pin = Pin(0, -1, "None") 
 
 	def __init__(self) -> None:
 		self.pin_sheet = readJSONPIN()
@@ -67,7 +67,7 @@ class GPIOSystem():
 			GPIO.cleanup()
 		pass
 
-	def maxPin(self, pin1: Pin | None, pin2 : Pin | None) -> Pin | None:
+	def maxPin(self, pin1: Pin , pin2 : Pin ) -> Pin :
 		if pin2 is None:
 			return pin1
 		if pin1 is None:
@@ -76,7 +76,7 @@ class GPIOSystem():
 		return pin1 if pin1.id > pin2.id else pin2
 
 	def reset_highest_pin(self):
-		self.highest_pin = None
+		self.highest_pin = self.pins[0] 
 		pass
 
 	def findPinData(self, pin: Pin):
