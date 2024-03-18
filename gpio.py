@@ -30,6 +30,7 @@ class GPIOSystem():
 		self.pin_sheet = readJSONPIN()
 		GPIO.setmode(GPIO.BCM)
 		index = 0
+		print(self.pin_sheet)
 		for pin in self.pin_sheet:
 			pin_json = self.pin_sheet["pin"]
 			pin_number = int(pin_json["pin"])
