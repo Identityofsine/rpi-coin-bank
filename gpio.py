@@ -32,8 +32,9 @@ class GPIOSystem():
 		index = 0
 		for data in self.pin_sheet:
 			for name, pin in data.items():
-					self.pins.append(Pin(pin=pin, id=None, name=name))	
-					self.addPin(pin)
+					pin_obj = Pin(pin=pin, id=None, name=name)
+					self.pins.append(pin_obj)	
+					self.addPin(pin_obj)
 			index += 1
 		self.start()
 		pass
