@@ -12,6 +12,8 @@ def readJSONPIN(path = "./pins.json"):
 
 class GPIOSystem():
 	
+	pins = []
+
 	def __init__(self) -> None:
 		pin_sheet = readJSONPIN()
 		GPIO.setmode(GPIO.BCM)
@@ -27,12 +29,13 @@ class GPIOSystem():
 
 	def addPin(self, pin: int):
 		GPIO.setup(pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+		self.pins.append(pin)
 		pass
 
 	def start(self):
 		try:
 			while True:
-				for pin in readJSONPIN():
+				for pin in self.pins:
 					input_state = GPIO.input(pin)
 					if input_state == GPIO.HIGH:
 						print(f"Pin {pin} is HIGH")
