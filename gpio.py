@@ -54,9 +54,9 @@ class GPIOSystem():
 					input_state = GPIO.input(pin.pin)
 					if input_state == GPIO.LOW:
 						print(f"Pin {pin} is LOW")
-							#time.sleep(0.5)
-					self.highest_pin = self.maxPin(pin, self.highest_pin)
-					print(f"Highest Pin: {self.highest_pin}")
+						self.highest_pin = self.maxPin(pin, self.highest_pin)
+						if(pin.id == 0):
+							self.onPinReset(pin.id)
 				time.sleep(0.5)
 		except KeyboardInterrupt:
 			# Clean up GPIO on keyboard interrupt
@@ -85,6 +85,9 @@ class GPIOSystem():
 
 	@abstractmethod 
 	def onPinReset(self, pin: int):
+		highest_pin_copy = self.highest_pin
+		self.reset_highest_pin()
+		print(f"Resetting Highest Pin: {highest_pin_copy}")
 		pass
 
 
