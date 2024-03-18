@@ -14,9 +14,11 @@ def readJSONPIN(path = "./pins.json"):
 class Pin() :
 	id = 0
 	pin = 0
-	def __init__(self, id, pin):
+	name = ""
+	def __init__(self, id, pin, name):
 		self.id = id
 		self.pin = pin
+		self.name = ""
 		pass
 
 class GPIOSystem():
@@ -29,9 +31,10 @@ class GPIOSystem():
 		GPIO.setmode(GPIO.BCM)
 		index = 0
 		for pin in self.pin_sheet:
-			print(f"Setting up pin {self.pin_sheet[pin]}")
-			pin_number = int(self.pin_sheet[pin])
-			pin = Pin(index, pin_number)
+			pin_json = self.pin_sheet[pin]
+			pin_number = int(pin_json["pin"])
+			print(f"Setting up pin {pin_number}")
+			pin = Pin(index, pin_number, "")
 			index += 1
 			self.addPin(pin)
 		self.start()
@@ -67,7 +70,6 @@ class GPIOSystem():
 		pass
 
 	def findPinData(self, pin: Pin):
-		print(pin)
 		return self.pin_sheet[pin.id] 
 
 
