@@ -21,6 +21,9 @@ class Pin() :
 		self.name = ""
 		pass
 
+	def __str__(self):
+		return f"{self.name}:({self.id}) - Pin({self.pin})"
+
 class GPIOSystem():
 	
 	pins = []
