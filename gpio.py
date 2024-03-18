@@ -36,6 +36,11 @@ class GPIOSystem():
 						print(f"Pin {pin} is LOW")
 					time.sleep(0.5)
 		except KeyboardInterrupt:
+			# Clean up GPIO on keyboard interrupt
+			print("Cleaning up GPIO")
+			GPIO.cleanup()
+		except Exception as e:
+			print(f"Error: {e}")
 			GPIO.cleanup()
 		pass
 
