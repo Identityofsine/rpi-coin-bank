@@ -67,6 +67,7 @@ class GPIOSystem():
 		pass
 
 	def findPinData(self, pin: Pin):
+		print(pin)
 		return self.pin_sheet[pin.id] 
 
 
