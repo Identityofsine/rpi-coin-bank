@@ -14,15 +14,29 @@ class GPIOSystem():
 	
 	def __init__(self) -> None:
 		pin_sheet = readJSONPIN()
-		#pin_sheet = {"name": pin_number}
 		for pin in pin_sheet:
 			print(f"Setting up pin {pin_sheet[pin]}")
+			self.addPin(pin_sheet[pin])
+		self.start()
 		pass
 
 	def addPin(self, pin):
 		GPIO.setmode(GPIO.BCM)
 		GPIO.setup(pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-		#TODO: Add pin to the json file
+		pass
+
+	def start(self):
+		try:
+			while True:
+				for pin in readJSONPIN():
+					input_state = GPIO.input(pin)
+					if input_state == GPIO.HIGH:
+						print(f"Pin {pin} is HIGH")
+					else:
+						print(f"Pin {pin} is LOW")
+					time.sleep(0.5)
+		except KeyboardInterrupt:
+			GPIO.cleanup()
 		pass
 
 # Set GPIO mode to BCM
