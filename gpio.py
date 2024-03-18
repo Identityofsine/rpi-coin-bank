@@ -30,14 +30,11 @@ class GPIOSystem():
 		self.pin_sheet = readJSONPIN()
 		GPIO.setmode(GPIO.BCM)
 		index = 0
-		for pin in self.pin_sheet:
-			print(pin)
-			pin_json = self.pin_sheet[pin]
-			pin_number = int(pin_json["pin"])
-			print(f"Setting up pin {pin_number}")
-			pin = Pin(index, pin_number, "")
+		for data in self.pin_sheet:
+			for name, pin in data.items():
+					self.pins.append(Pin(pin=pin, id=None, name=name))	
+					self.addPin(pin)
 			index += 1
-			self.addPin(pin)
 		self.start()
 		pass
 
