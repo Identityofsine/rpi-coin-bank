@@ -14,14 +14,18 @@ class GPIOSystem():
 	
 	def __init__(self) -> None:
 		pin_sheet = readJSONPIN()
+		GPIO.setmode(GPIO.BCM)
 		for pin in pin_sheet:
 			print(f"Setting up pin {pin_sheet[pin]}")
-			self.addPin(int(pin_sheet[pin]))
+			pin_number = int(pin_sheet[pin])
+			#check if the pin_number is a number
+			if not isinstance(pin_number, int):
+				raise ValueError(f"Pin number {pin_number} is not a number")
+			self.addPin(pin_number)
 		self.start()
 		pass
 
-	def addPin(self, pin):
-		GPIO.setmode(GPIO.BCM)
+	def addPin(self, pin: int):
 		GPIO.setup(pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 		pass
 
