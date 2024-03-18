@@ -1,0 +1,9 @@
+{
+	"base": 2,
+	"dime": 3,
+	"penny": 4,
+	"nickel": 17,
+	"quarter": 27,
+	"dollar": 22,
+	"half-dollar": 23,
+}
