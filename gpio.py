@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+from abc import abstractmethod
 import RPi.GPIO as GPIO
 import json
 from coinbank import CoinBank 
@@ -10,25 +11,34 @@ def readJSONPIN(path = "./pins.json"):
 		data = json.load(file)
 		return data
 
+class Pin() :
+	id = 0
+	pin = 0
+	def __init__(self, id, pin):
+		self.id = id
+		self.pin = pin
+		pass
+
 class GPIOSystem():
 	
 	pins = []
+	highest_pin = 0
 
 	def __init__(self) -> None:
-		pin_sheet = readJSONPIN()
+		self.pin_sheet = readJSONPIN()
 		GPIO.setmode(GPIO.BCM)
-		for pin in pin_sheet:
-			print(f"Setting up pin {pin_sheet[pin]}")
-			pin_number = int(pin_sheet[pin])
-			#check if the pin_number is a number
-			if not isinstance(pin_number, int):
-				raise ValueError(f"Pin number {pin_number} is not a number")
-			self.addPin(pin_number)
+		index = 0
+		for pin in self.pin_sheet:
+			print(f"Setting up pin {self.pin_sheet[pin]}")
+			pin_number = int(self.pin_sheet[pin])
+			pin = Pin(index, pin_number)
+			index += 1
+			self.addPin(pin)
 		self.start()
 		pass
 
-	def addPin(self, pin: int):
-		GPIO.setup(pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+	def addPin(self, pin: Pin):
+		GPIO.setup(pin.pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 		self.pins.append(pin)
 		pass
 
@@ -36,11 +46,12 @@ class GPIOSystem():
 		try:
 			while True:
 				for pin in self.pins:
-					input_state = GPIO.input(pin)
-					if input_state == GPIO.HIGH:
-						print(f"Pin {pin} is HIGH")
-					else:
-						print(f"Pin {pin} is LOW")
+					input_state = GPIO.input(pin.pin)
+					if input_state == GPIO.LOW:
+						pin_data = self.findPinData(pin)
+						if pin_data is not None:
+							print(f"Pin {pin} is LOW")
+							#time.sleep(0.5)
 				time.sleep(0.5)
 		except KeyboardInterrupt:
 			# Clean up GPIO on keyboard interrupt
@@ -50,6 +61,19 @@ class GPIOSystem():
 			print(f"Error: {e}")
 			GPIO.cleanup()
 		pass
+
+	def reset_highest_pin(self):
+		self.highest_pin = 0
+		pass
+
+	def findPinData(self, pin: Pin):
+		return self.pin_sheet[pin.id] 
+
+
+	@abstractmethod 
+	def onPinReset(self, pin: int):
+		pass
+
 
 # Set GPIO mode to BCM
 #pin = 2
