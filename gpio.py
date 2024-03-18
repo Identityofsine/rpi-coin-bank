@@ -50,9 +50,7 @@ class GPIOSystem():
 				for pin in self.pins:
 					input_state = GPIO.input(pin.pin)
 					if input_state == GPIO.LOW:
-						pin_data = self.findPinData(pin)
-						if pin_data is not None:
-							print(f"Pin {pin} is LOW")
+						print(f"Pin {pin} is LOW")
 							#time.sleep(0.5)
 				time.sleep(0.5)
 		except KeyboardInterrupt:
