@@ -16,7 +16,7 @@ class GPIOSystem():
 		pin_sheet = readJSONPIN()
 		for pin in pin_sheet:
 			print(f"Setting up pin {pin_sheet[pin]}")
-			self.addPin(pin_sheet[pin])
+			self.addPin(int(pin_sheet[pin]))
 		self.start()
 		pass
 
