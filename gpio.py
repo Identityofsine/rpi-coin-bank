@@ -27,7 +27,7 @@ class Pin() :
 class GPIOSystem():
 	
 	pins = []
-	highest_pin = 0
+	highest_pin : Pin | None = None
 
 	def __init__(self) -> None:
 		self.pin_sheet = readJSONPIN()
@@ -55,6 +55,8 @@ class GPIOSystem():
 					if input_state == GPIO.LOW:
 						print(f"Pin {pin} is LOW")
 							#time.sleep(0.5)
+					self.highest_pin = self.maxPin(pin, self.highest_pin)
+					print(f"Highest Pin: {self.highest_pin}")
 				time.sleep(0.5)
 		except KeyboardInterrupt:
 			# Clean up GPIO on keyboard interrupt
@@ -65,8 +67,16 @@ class GPIOSystem():
 			GPIO.cleanup()
 		pass
 
+	def maxPin(self, pin1: Pin | None, pin2 : Pin | None) -> Pin | None:
+		if pin2 is None:
+			return pin1
+		if pin1 is None:
+			return pin2
+		
+		return pin1 if pin1.id > pin2.id else pin2
+
 	def reset_highest_pin(self):
-		self.highest_pin = 0
+		self.highest_pin = None
 		pass
 
 	def findPinData(self, pin: Pin):
