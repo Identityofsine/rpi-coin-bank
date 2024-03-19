@@ -93,13 +93,12 @@ class GPIOSystem():
 
 class GPIOAPI(GPIOSystem):
 	def __init__(self, coinbank: CoinBank) -> None:
-		self.coinbank = ""		
+		self.coinbank = coinbank		
 		super().__init__()
 		pass
 
 	def onPinReset(self, pin: int):
 		pin_data = self.findPinData(self.highest_pin)
-		#balance = self.coinbank.deposit(1);
-		print(f"Pin {pin} was reset")
-		print(f"{pin_data} - Balance: {self.coinbank}")
+		self.coinbank.deposit(1);
+		print(f"{pin_data} - Balance: {self.coinbank.display()}")
 		pass
