@@ -92,6 +92,8 @@ class GPIOSystem():
 
 
 class GPIOAPI(GPIOSystem):
+	coinbank : CoinBank 
+
 	def __init__(self, coinbank: CoinBank) -> None:
 		super().__init__()
 		self.coinbank = coinbank
