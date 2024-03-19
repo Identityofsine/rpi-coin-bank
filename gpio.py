@@ -94,7 +94,7 @@ class GPIOSystem():
 class GPIOAPI(GPIOSystem):
 	def __init__(self, coinbank: CoinBank) -> None:
 		super().__init__()
-		self.coinbank = coinbank
+		self.coinbank = ""		
 		pass
 
 	def onPinReset(self, pin: int):
@@ -102,7 +102,6 @@ class GPIOAPI(GPIOSystem):
 		if(self.coinbank is None):
 			print(f"Coinbank is not set")
 			return
-
-		balance = self.coinbank.deposit(1);
-		print(f"{pin_data} - Balance: {balance}")
+		#balance = self.coinbank.deposit(1);
+		print(f"{pin_data} - Balance: {self.coinbank}")
 		pass
