@@ -2,10 +2,11 @@
 
 import RPi.GPIO as GPIO
 from coinbank import CoinBank 
-from gpio import GPIOSystem
+from gpio import GPIOAPI, GPIOSystem
 import time
 
-x = GPIOSystem()
+coinbank = CoinBank()
+x = GPIOAPI(coinbank)
 
 
 
