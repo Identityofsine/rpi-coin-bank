@@ -56,6 +56,7 @@ class GPIOSystem():
 						print(f"Pin {pin} is LOW")
 						self.highest_pin = self.maxPin(pin, self.highest_pin)
 						if(pin.id == 0 and self.highest_pin.id > 0):
+							self.highest_pin = 0
 							self.onPinReset(pin.id)
 				time.sleep(0.5)
 		except KeyboardInterrupt:
