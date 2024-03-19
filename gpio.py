@@ -100,5 +100,5 @@ class GPIOAPI(GPIOSystem):
 	def onPinReset(self, pin: int):
 		pin_data = self.findPinData(self.highest_pin)
 		#balance = self.coinbank.deposit(1);
-		print(f"{pin_data} - Balance: {self.coinbank}")
+		#print(f"{pin_data} - Balance: {self.coinbank}")
 		pass
