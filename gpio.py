@@ -45,6 +45,7 @@ class GPIOSystem():
 		pass
 
 	def addPin(self, pin: Pin):
+		print(f"Adding Pin: {pin.pin}")
 		GPIO.setup(pin.pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 		self.pins.append(pin)
 		pass
