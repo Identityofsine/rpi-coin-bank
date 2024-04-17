@@ -43,8 +43,8 @@ class GPIOSystem():
 					# check name
 					if(name == "pin"):
 						pin_obj.pin = value
-					elif(name == "name"):
-						pin_obj.name = value
+					elif(name == "value"):
+						pin_obj.value = value
 					# Add pin object to list
 				self.addPin(pin_obj)
 			index += 1 # increment index
