@@ -15,7 +15,7 @@ class Pin() :
 	id = 0
 	pin = 0
 	name = ""
-	def __init__(self, id, pin, name, value = 0):
+	def __init__(self, id = -1, pin = -1, name = "", value = 0):
 		self.id = id
 		self.pin = pin # pin
 		self.name = name # name 
@@ -37,9 +37,13 @@ class GPIOSystem():
 		index = 0 # Index for pin
 		for data in self.pin_sheet: # begin reading pin sheet 
 			for attribute, big_value in data.items(): 
+				pin_obj = Pin(name=attribute) #create pin object
 				for name, value in big_value.items():
-					print(name, value)
-					pin_obj = Pin(pin=0, id=index, name=name) #create pin object
+					if(name == "pin"):
+						pin_obj.pin = value
+					elif(name == "name"):
+						pin_obj.name = value
+					print(attribute, name, value)
 					# Add pin object to list
 					self.addPin(pin_obj)
 			index += 1
