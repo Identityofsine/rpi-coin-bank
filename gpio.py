@@ -15,10 +15,11 @@ class Pin() :
 	id = 0
 	pin = 0
 	name = ""
-	def __init__(self, id, pin, name):
+	def __init__(self, id, pin, name, value = 0):
 		self.id = id
-		self.pin = pin
-		self.name = name 
+		self.pin = pin # pin
+		self.name = name # name 
+		self.value = value # value
 		pass
 
 	def __str__(self):
@@ -32,15 +33,15 @@ class GPIOSystem():
 	def __init__(self) -> None:
 		#JSON PIN SHEET (pins.json)
 		self.pin_sheet = readJSONPIN()
-		GPIO.setmode(GPIO.BCM)
-		index = 0
-		for data in self.pin_sheet:
-			for name, pin in data.items():
-					pin_obj = Pin(pin=pin, id=index, name=name)
-					self.pins.append(pin_obj)	
+		GPIO.setmode(GPIO.BCM) # Use BCM GPIO numbers
+		index = 0 # Index for pin
+		for data in self.pin_sheet: # begin reading pin sheet 
+			for name, pin in data.items(): 
+					pin_obj = Pin(pin=pin, id=index, name=name) #create pin object
+					# Add pin object to list
 					self.addPin(pin_obj)
 			index += 1
-		self.start()
+		self.start() # Start the GPIO System
 		pass
 
 	def addPin(self, pin: Pin):
@@ -58,7 +59,7 @@ class GPIOSystem():
 						self.highest_pin = self.maxPin(pin, self.highest_pin)
 						if(pin.id == 0 and self.highest_pin.id > 0):
 							self.highest_pin = self.pins[0]
-							self.onPinReset(pin.id)
+							self.onPinReset(pin) #reset pin 
 				time.sleep(0.5)
 		except KeyboardInterrupt:
 			# Clean up GPIO on keyboard interrupt
@@ -85,8 +86,9 @@ class GPIOSystem():
 		return self.pin_sheet[pin.id] 
 
 
+	#abstract method that will be implemented in the child class
 	@abstractmethod 
-	def onPinReset(self, pin: int):
+	def onPinReset(self, pin: Pin):
 		highest_pin_copy = self.highest_pin
 		self.reset_highest_pin()
 		print(f"Resetting Highest Pin: {highest_pin_copy}")
@@ -99,8 +101,9 @@ class GPIOAPI(GPIOSystem):
 		super().__init__()
 		pass
 
-	def onPinReset(self, pin: int):
-		pin_data = self.findPinData(self.highest_pin)
-		self.coinbank.deposit(1);
-		print(f"{pin_data} - Balance: {self.coinbank.display()}")
+	#override the onPinReset method, deposit x to the coinbank
+	def onPinReset(self, pin: Pin):
+		super().onPinReset(pin)
+		self.coinbank.deposit(pin.value);
+		print(f"{pin.name} - Balance: {self.coinbank.display()}")
 		pass
