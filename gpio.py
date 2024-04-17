@@ -37,20 +37,22 @@ class GPIOSystem():
 		index = 0 # Index for pin
 		for data in self.pin_sheet: # begin reading pin sheet 
 			for attribute, big_value in data.items(): 
-				pin_obj = Pin(name=attribute) #create pin object
+				# Create pin object
+				pin_obj = Pin(id=index, name=attribute) #create pin object
 				for name, value in big_value.items():
+					# check name
 					if(name == "pin"):
 						pin_obj.pin = value
 					elif(name == "name"):
 						pin_obj.name = value
-					print(attribute, name, value)
 					# Add pin object to list
-					self.addPin(pin_obj)
+				self.addPin(pin_obj)
 			index += 1
 		self.start() # Start the GPIO System
 		pass
 
 	def addPin(self, pin: Pin):
+		# Set up the pin as an input
 		GPIO.setup(pin.pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 		self.pins.append(pin)
 		pass
