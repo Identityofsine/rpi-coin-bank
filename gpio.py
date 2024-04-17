@@ -36,8 +36,9 @@ class GPIOSystem():
 		GPIO.setmode(GPIO.BCM) # Use BCM GPIO numbers
 		index = 0 # Index for pin
 		for data in self.pin_sheet: # begin reading pin sheet 
-			for name in data.items(): 
-					print(name)
+			for attribute, big_value in data.items(): 
+				for name, value in big_value.items():
+					print(name, value)
 					pin_obj = Pin(pin=0, id=index, name=name) #create pin object
 					# Add pin object to list
 					self.addPin(pin_obj)
