@@ -1,9 +1,43 @@
 [
-	{"base": 12},
-	{"dime": 16},
-	{"penny": 4},
-	{"nickel": 17},
-	{"quarter": 27},
-	{"dollar": 22},
-	{"half-dollar": 23}
+	{
+		"base": {
+			"pin":12,
+			"value":0
+		}
+	},
+	{
+		"dime": {
+			"pin":16,
+			"value":.10
+		}
+	},
+	{
+		"penny": {
+			"pin":4,
+			"value":.01
+		},
+	{
+		"nickel": {
+			"pin":17,
+			"value":.05
+		}
+	},
+	{
+		"quarter": {
+			"pin":27,
+			"value":.25
+		}
+	},
+	{
+		"dollar": {
+			"pin":22, 
+			"value":1.00
+		}
+	},
+	{
+		"half-dollar": {
+			"pin":23,
+			"value":.50
+		}
+	}
 ]

@@ -30,6 +30,7 @@ class GPIOSystem():
 	highest_pin : Pin = Pin(0, -1, "None") 
 
 	def __init__(self) -> None:
+		#JSON PIN SHEET (pins.json)
 		self.pin_sheet = readJSONPIN()
 		GPIO.setmode(GPIO.BCM)
 		index = 0
