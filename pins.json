@@ -8,24 +8,25 @@
 	{
 		"dime": {
 			"pin":16,
-			"value":.10
+			"value":0.10
 		}
 	},
 	{
 		"penny": {
 			"pin":4,
-			"value":.01
-		},
+			"value":0.01
+		}
+	},
 	{
 		"nickel": {
 			"pin":17,
-			"value":.05
+			"value":0.05
 		}
 	},
 	{
 		"quarter": {
 			"pin":27,
-			"value":.25
+			"value":0.25
 		}
 	},
 	{
@@ -37,7 +38,7 @@
 	{
 		"half-dollar": {
 			"pin":23,
-			"value":.50
+			"value":0.50
 		}
 	}
 ]
