@@ -47,7 +47,7 @@ class GPIOSystem():
 						pin_obj.name = value
 					# Add pin object to list
 				self.addPin(pin_obj)
-			index += 1
+			index += 1 # increment index
 		self.start() # Start the GPIO System
 		pass
 
@@ -66,8 +66,8 @@ class GPIOSystem():
 						print(f"Pin {pin} is LOW")
 						self.highest_pin = self.maxPin(pin, self.highest_pin)
 						if(pin.id == 0 and self.highest_pin.id > 0):
+							self.onPinReset(self.highest_pin) #reset pin 
 							self.highest_pin = self.pins[0]
-							self.onPinReset(pin) #reset pin 
 				time.sleep(0.5)
 		except KeyboardInterrupt:
 			# Clean up GPIO on keyboard interrupt
